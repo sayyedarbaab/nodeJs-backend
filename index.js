@@ -2,10 +2,9 @@ const http = require("http");
 const fs = require("fs");
 const index = fs.readFileSync("index.html", "utf8");
 const data = JSON.parse(fs.readFileSync("db.json")); //JSON.PARSE() json data changing to string
-const product = data.products[9];
+const product = data.products[7];
 
 const server = http.createServer((req, res) => {
-  // console.log(req.url);
   if (req.url.startsWith("/product")) {
     res.setHeader("Content-type", "text/html");
     const modify = index
@@ -13,6 +12,7 @@ const server = http.createServer((req, res) => {
       .replace("**price**", product.price)
       .replace("**thumbnail**", product.thumbnail);
     res.end(modify);
+    // return;
   }
   switch (req.url) {
     case "/":
